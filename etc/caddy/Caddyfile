@@ -7,6 +7,7 @@ cloud.jimcoggeshall.com {
     route {
         file_server {
             root /var/www/cloud.jimcoggeshall.com
+            browse /files
         }
     }
 }
