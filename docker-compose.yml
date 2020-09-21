@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+    svc-caddy:
+        restart: unless-stopped
+        image: wexec-caddy:latest
+        build:
+            context: .
+            dockerfile: Dockerfile.caddy
+        volumes: 
+            - type: bind
+              source: ./etc/caddy
+              target: /etc/caddy
+            - type: bind
+              source: ./var/www
+              target: /var/www
+            - type: bind
+              source: ./var/data
+              target: /var/data
+        network_mode: host
