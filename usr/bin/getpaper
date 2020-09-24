@@ -6,7 +6,8 @@ NOW=$(date +%Y%m%d%H%M%S)
 
 source $NVM_DIR/nvm.sh
 
-workdir=/$(uuidgen)
+workdirstr=$(uuidgen)
+workdir="/$workdirstr"
 mkdir -p "$workdir" && chmod 777 "$workdir"
 pushd "$workdir"
 cp /run.js "$workdir"
@@ -85,7 +86,7 @@ XPID=$!
     -qmax 42 \
     -maxrate 384k \
     -bufsize 1000k \
-    -an "$outdir/screen.webm" &
+    -an "$workdir/screen.webm" &
 WPID=$!
 sleep 5
 tcpdump -KUnnvvv -Z nobody -s0 -i any -w "$workdir/session.pcap" &
@@ -120,8 +121,13 @@ chmod -R 777 "$workdir"
 mv "$workdir" "$outdir"
 
 pushd "$outdir"
-find "$workdir/pdf_output" -name "*.pdf" | while read f; do
-    ln -sf "$f" latest.pdf
+find "$workdirstr/pdf_output" -name "*.pdf" | while read f; do
+    ln -sf "$f" output.pdf
 done
+popd
+
+pushd /output
+ln -sf "$NOW/output.pdf" latest.pdf
+popd
 
 chmod -R 777 "$outdir"
