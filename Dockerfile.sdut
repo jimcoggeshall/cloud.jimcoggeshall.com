@@ -8,7 +8,6 @@ SHELL ["/bin/bash", "-c"]
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install node && nvm use --delete-prefix node && nvm alias default node"
 RUN /bin/bash -c "source $NVM_DIR/nvm.sh && npm install puppeteer-core axios"
-COPY python /usr/local/python
 RUN pip3 install urlextract
 COPY usr/bin/getpaper /
 COPY usr/share/sdut.js /run.js
