@@ -7,7 +7,7 @@ if [ -e /output/TodaysPaper.pdf ]; then
 fi
 
 pushd /output
-pdfcombine *.pdf TodaysPaper.pdf
+pdfunite *.pdf TodaysPaper.pdf
 popd
 
 chmod -R 777 /output
