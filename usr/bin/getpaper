@@ -101,8 +101,6 @@ sleep 5
 kill -TERM $TPID $WPID $XPID $NPID
 
 cat "$workdir/extracted.json" | jq ".[]" | jq -rc ".href" > "$workdir/urls.txt"
-cat "$workdir/urls.txt" | url2fqdn > "$workdir/fqdns.txt"
-cat "$workdir/urls.txt" | url2sld > "$workdir/slds.txt"
 
 tshark -2 -V \
     -r "$workdir/session.pcap" \
@@ -115,6 +113,7 @@ cat "$workdir/ts.jsonl" | jq '.layers.http.http_http_file_data ' | awk '/Your PD
 urlextract "$workdir/http_file_data.txt" | awk '/\.pdf$/' > "$workdir/pdf_url.txt"
 mkdir -p "$workdir/pdf_output" && pushd "$workdir/pdf_output"
 wget $(cat "$workdir/pdf_url.txt")
+popd
 popd
 
 chmod -R 777 "$workdir"
