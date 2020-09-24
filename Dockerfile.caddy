@@ -1,6 +1,7 @@
 FROM caddy:builder AS builder
 
-RUN caddy-builder github.com/caddyserver/nginx-adapter 
+RUN caddy-builder \
+    github.com/mholt/caddy-webdav
 
 FROM caddy:alpine
 
