@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+if [ -e /output/TodaysPaper.pdf ]; then
+    rm -f /output/TodaysPaper.pdf
+fi
+
+pushd /output
+pdfcombine *.pdf TodaysPaper.pdf
+popd
+
+chmod -R 777 /output
