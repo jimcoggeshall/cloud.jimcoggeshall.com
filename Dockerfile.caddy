@@ -1,7 +1,6 @@
 FROM caddy:builder AS builder
 
-RUN caddy-builder \
-    github.com/mholt/caddy-webdav
+RUN xcaddy build
 
 FROM caddy:alpine
 
