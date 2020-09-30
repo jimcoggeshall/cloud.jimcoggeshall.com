@@ -11,3 +11,9 @@ cloud.jimcoggeshall.com {
         }
     }
 }
+
+draw.coggeshall.io {
+    route {
+        reverse_proxy localhost:8080
+    }
+}
