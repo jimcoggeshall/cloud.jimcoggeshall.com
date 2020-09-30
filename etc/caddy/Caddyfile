@@ -17,3 +17,7 @@ draw.coggeshall.io {
         reverse_proxy localhost:8080
     }
 }
+
+wb.draw.coggeshall.io {
+    redir https://draw.coggeshall.io/?whiteboardid={file}
+}
