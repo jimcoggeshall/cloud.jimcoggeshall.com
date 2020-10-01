@@ -2,6 +2,8 @@
 
 set -e
 
+day=$(date +%-d)
+
 if [ -e /output/TodaysPaper.pdf ]; then
     rm -f /output/TodaysPaper.pdf
 fi
@@ -11,7 +13,9 @@ if [ -d /workdir ]; then
 fi
 mkdir -p /workdir
 pushd /workdir
-cat /etc/todayspaper/frontpages.txt | while read d; do
+cat /etc/todayspaper/frontpages.txt |\
+sed "s/DAYOFMONTH/$day/g" |\
+while read d; do
     wget "$d"
     sleep 35
 done
