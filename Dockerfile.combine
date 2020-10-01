@@ -3,5 +3,6 @@ FROM debian:latest
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install wget poppler-utils uuid-runtime
 
 COPY /bin/todayspaper /bin/todayspaper
+COPY /etc/todayspaper /etc/todayspaper
 
 CMD ["/bin/todayspaper"]

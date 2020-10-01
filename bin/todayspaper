@@ -6,8 +6,19 @@ if [ -e /output/TodaysPaper.pdf ]; then
     rm -f /output/TodaysPaper.pdf
 fi
 
-pushd /output
+if [ -d /workdir ]; then
+    rm -rf /workdir
+fi
+mkdir -p /workdir
+pushd /workdir
+cat /etc/todayspaper/frontpages.txt | while read d; do
+    wget "$d"
+    sleep 35
+done
 pdfunite *.pdf TodaysPaper.pdf
+mv TodaysPaper.pdf /output
 popd
+
+rm -rf /workdir
 
 chmod -R 777 /output
