@@ -5,3 +5,13 @@ https://cdn.newseum.org/dfp/pdfDAYOFMONTH/DC_WP.pdf
 https://cdn.newseum.org/dfp/pdfDAYOFMONTH/NY_NYT.pdf
 https://cdn.newseum.org/dfp/pdfDAYOFMONTH/NM_AJ.pdf
 https://cdn.newseum.org/dfp/pdfDAYOFMONTH/NM_SFNM.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/AZ_AR.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/CA_SFC.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/CA_OCR.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/CA_MN.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/CO_DP.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/FL_MH.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/GA_AJC.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/IL_CT.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/MO_SLPD.pdf
+https://cdn.newseum.org/dfp/pdfDAYOFMONTH/UT_DH.pdf
