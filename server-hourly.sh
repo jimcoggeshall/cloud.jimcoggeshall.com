@@ -1,8 +1,8 @@
 #!/bin/bash
 
-docker-compose down
 yes | docker system prune -a
-docker-compose up --build -d
+docker-compose build --pull
+docker-compose restart
 ./wsj.sh
 ./sdut.sh
 ./lat.sh
