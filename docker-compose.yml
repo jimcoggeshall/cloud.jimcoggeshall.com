@@ -20,15 +20,8 @@ services:
     svc-whiteboard:
         restart: always
         image: wexec-whiteboard:latest
-        build: https://github.com/jimcoggeshall/whiteboard.git
-        ports:
-            - "8080:8080/tcp"
-        command: --config=./config.default.yml
-    svc-whiteboard-test:
-        restart: on-failure 
-        image: wexec-whiteboard-test:latest
         build: https://github.com/lovasoa/whitebophir.git
         ports:
-            - "9080:80"
+            - "8080:80"
         volumes:
             - /opt/app/server-data:/opt/app/server-data

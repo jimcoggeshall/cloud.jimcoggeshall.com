@@ -19,11 +19,5 @@ draw.coggeshall.io {
 }
 
 wb.draw.coggeshall.io {
-    redir https://draw.coggeshall.io/?whiteboardid={file}
-}
-
-test.draw.coggeshall.io {
-    route {
-        reverse_proxy localhost:9080
-    }
+    redir https://draw.coggeshall.io/boards/{file}
 }
