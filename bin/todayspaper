@@ -17,7 +17,7 @@ cat /etc/todayspaper/frontpages.txt |\
 sed "s/DAYOFMONTH/$day/g" |\
 while read d; do
     wget "$d"
-    sleep 35
+    sleep 5
 done
 pdfunite *.pdf TodaysPaper.pdf
 mv TodaysPaper.pdf /output
