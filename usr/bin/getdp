@@ -1,0 +1,120 @@
+#!/bin/bash
+
+set -x
+
+NOW=$(date +%Y%m%d%H%M%S)
+
+source $NVM_DIR/nvm.sh
+
+workdirstr=$(uuidgen)
+workdir="/$workdirstr"
+mkdir -p "$workdir" && chmod 777 "$workdir"
+pushd "$workdir"
+cp /run.js "$workdir"
+mkdir user-data
+mkdir user-home
+
+outdir=/output/$NOW
+if [ -d "$outdir" ]; then
+    rm -rf "$outdir"
+fi
+mkdir -p "$outdir"
+chmod -R 777 "$outdir"
+
+function cleanup {
+    kill -TERM $WPID $NPID $XPID
+    if [ -d "workdir" ]; then
+        mv "$workdir" "$outdir"
+    fi
+    chmod -R 777 "$outdir"
+}
+trap cleanup HUP INT TERM QUIT ABRT FPE ALRM EXIT
+
+dbus-uuidgen --ensure
+export $(/usr/bin/dbus-launch)
+/usr/bin/xvfb-run -n 89 \
+    --server-args="-screen 0 2304x1440x24 -ac -nolisten tcp -dpi 96 +extension RANDR" \
+    /usr/bin/chromium \
+    --disable-backing-store-limit \
+    --start-fullscreen \
+    --disable-dev-shm-usage \
+    --disable-gpu \
+    --no-sandbox \
+    --disable-setuid-sandbox \
+    --enable-viewport \
+    --disable-features=NetworkService \
+    --disable-background-networking \
+    --disable-default-apps \
+    --disable-component-cloud-policy \
+    --disable-component-update \
+    --disable-extensions \
+    --disable-sync \
+    --disable-test-root-certs \
+    --no-default-browser-check \
+    --no-crash-upload \
+    --no-first-run \
+    --no-referrers \
+    --log-file=$workdir/main.log \
+    --log-level=0 \
+    --log-net-log=$workdir/net.log \
+    --enable-logging --v=1 \
+    --net-log-capture-mode="Everything" \
+    --user-data-dir=$workdir/user-data \
+    --test-logging-path=$workdir/test.log \
+    --homedir=$workdir/user-home \
+    --ignore-previews-blacklist \
+    --unsafely-allow-protected-media-identifier-for-domain \
+    --unsafely-treat-insecure-origin-as-secure \
+    --allow-running-insecure-content \
+    --allow-unsecure-dlls \
+    --allow-legacy-extension-manifests \
+    --ssl-key-log-file=$workdir/ssl_keys.log \
+    --remote-debugging-port=9222 \
+    --window-position="0,0" \
+    --window-size="2304,1440" &
+XPID=$!
+/usr/bin/ffmpeg -r 30 \
+    -f x11grab \
+    -draw_mouse 0 \
+    -s 2304x1440 \
+    -i :89 \
+    -c:v libvpx \
+    -quality realtime \
+    -cpu-used 0 \
+    -b:v 384k \
+    -qmin 10 \
+    -qmax 42 \
+    -maxrate 384k \
+    -bufsize 1000k \
+    -an "$outdir/screen.webm" &
+WPID=$!
+sleep 5
+tcpdump -KUnnvvv -Z nobody -s0 -i any -w "$workdir/session.pcap" &
+TPID=$!
+
+sleep 5
+
+timeout 300s node run.js |& tee "$workdir/console.log"
+
+sleep 5
+
+kill -TERM $TPID $WPID $XPID $NPID
+
+mv "$HOME/Downloads" "$workdir"
+
+popd
+
+chmod -R 777 "$workdir"
+mv "$workdir" "$outdir"
+
+pushd "$outdir"
+find "$workdirstr/Downloads" -name "*.pdf" | while read f; do
+    ln -sf "$f" output.pdf
+done
+popd
+
+pushd /output
+ln -sf "$NOW/output.pdf" latest.pdf
+popd
+
+chmod -R 777 "$outdir"
