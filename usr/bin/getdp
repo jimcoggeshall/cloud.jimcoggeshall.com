@@ -100,18 +100,15 @@ sleep 5
 
 kill -TERM $TPID $WPID $XPID $NPID
 
-cat main.log | urlextract | awk -F '\.pdf' 'NF > 1 {printf("%s.pdf", $1)}' > "$workdir/pdf_url.txt"
+mv "$HOME/Downloads" "$workdir"
 
-mkdir -p "$workdir/pdf_output" && pushd "$workdir/pdf_output"
-wget $(cat "$workdir/pdf_url.txt")
-popd
 popd
 
 chmod -R 777 "$workdir"
 mv "$workdir" "$outdir"
 
 pushd "$outdir"
-find "$workdirstr/pdf_output" -name "*.pdf" | while read f; do
+find "$workdirstr/Downloads" -name "*.pdf" | while read f; do
     ln -sf "$f" output.pdf
 done
 popd
