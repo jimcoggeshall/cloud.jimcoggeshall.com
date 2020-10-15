@@ -14,7 +14,7 @@ cloud.jimcoggeshall.com {
 
 draw.coggeshall.io {
     header {
-        +Content-Security-Policy: "frame-ancestors 'self' https://broadcast.jimcoggeshall.com"
+        +Content-Security-Policy "frame-ancestors 'self' https://broadcast.jimcoggeshall.com"
         -Server
     }
     route {
