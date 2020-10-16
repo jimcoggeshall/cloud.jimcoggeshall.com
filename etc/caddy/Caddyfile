@@ -11,17 +11,3 @@ cloud.jimcoggeshall.com {
         }
     }
 }
-
-draw.coggeshall.io {
-    header {
-        +Content-Security-Policy "frame-ancestors 'self' https://broadcast.jimcoggeshall.com"
-        -Server
-    }
-    route {
-        reverse_proxy localhost:8080
-    }
-}
-
-wb.draw.coggeshall.io {
-    redir https://draw.coggeshall.io/boards/{file}
-}

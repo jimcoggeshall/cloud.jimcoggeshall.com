@@ -17,11 +17,4 @@ services:
               source: ./var/data
               target: /var/data
         network_mode: host
-    svc-whiteboard:
-        restart: always
-        image: wexec-whiteboard:latest
-        build: https://github.com/lovasoa/whitebophir.git
-        ports:
-            - "8080:80"
-        volumes:
-            - /opt/app/server-data:/opt/app/server-data
+        
