@@ -28,7 +28,19 @@ const fs = require('fs');
     await page.waitForSelector('.page_doc_title');
     await page.waitForTimeout(3000);
 
-    await page.click('.page_doc_title');
+    const docButtons = await page.$$eval('.page_doc_title',
+      arr => arr.map((e, i) => {
+        let id = "doc-button-" + i.toString();
+        return JSON.stringify({
+          'id': id,
+          'innerText': e.innerText
+        });
+      }
+    );
+    const docButtonId = docButtons.map(b => JSON.parse(b))
+      .find(b => b.innerText.includes("The Wall Street Journal")).id;
+    const docButtonIdSelector = '#' + docButtonId;
+    await page.click(docButtonIdSelector);
     await page.waitForTimeout(3000);
 
     await page.waitForSelector('body > noindex > div.docs_panel_wrap > div > div > button');
