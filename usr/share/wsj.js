@@ -35,7 +35,7 @@ const fs = require('fs');
           'id': id,
           'innerText': e.innerText
         });
-      }
+      });
     );
     const docButtonId = docButtons.map(b => JSON.parse(b))
       .find(b => b.innerText.includes("The Wall Street Journal")).id;
