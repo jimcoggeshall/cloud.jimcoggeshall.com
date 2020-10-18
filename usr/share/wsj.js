@@ -31,6 +31,7 @@ const fs = require('fs');
     const docButtons = await page.$$eval('.page_doc_title',
       arr => arr.map((e, i) => {
         let id = "doc-button-" + i.toString();
+        e.setAttribute("id", id);
         return JSON.stringify({
           'id': id,
           'innerText': e.innerText
