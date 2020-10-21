@@ -6,7 +6,8 @@ RUN mkdir -p /usr/local/nvm
 ENV NVM_DIR /usr/local/nvm
 SHELL ["/bin/bash", "-c"]
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
-RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install node && nvm use --delete-prefix node && nvm alias default node"
+#RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install node && nvm use --delete-prefix node && nvm alias default node"
+RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install 14.14.0 && nvm use --delete-prefix 14.14.0 && nvm alias default 14.14.0"
 RUN /bin/bash -c "source $NVM_DIR/nvm.sh && npm install puppeteer-core axios"
 RUN pip3 install urlextract
 COPY usr/bin/getwsj /
