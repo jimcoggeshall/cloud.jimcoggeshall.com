@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docker-compose build
-./dp.sh
+#./dp.sh
 ./wsj.sh
 ./sdut.sh
 ./lat.sh
